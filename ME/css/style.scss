@@ -1,0 +1,67 @@
+// ========== Fonts Poppins ===========
+@font-face {
+    font-family: "Poppins Black";
+    src: url(fonts/Poppins/Poppins-Black.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Poppins Bold";
+    src: url(fonts/Poppins/Poppins-Bold.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Poppins SemiBold";
+    src: url(fonts/Poppins/Poppins-SemiBold.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Poppins Medium";
+    src: url(fonts/Poppins/Poppins-Medium.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Poppins Regular";
+    src: url(fonts/Poppins/Poppins-Regular.ttf) format("truetype");
+}
+@font-face {
+    font-family: "Poppins Light";
+    src: url(fonts/Poppins/Poppins-Light.ttf) format("truetype");
+}
+@import 'variables';
+// Plugins
+@import 'plugins/select2.min.css';
+@import 'plugins/jquery.range.min.css';
+@import 'plugins/datepicker.css';
+// Styles
+@import 'ui';
+@import 'input';
+@import 'login';
+@import 'modals';
+@import 'home';
+@import 'calendar';
+@import 'reservations';
+@import 'guests';
+@import 'invoices';
+@import 'settings';
+@import 'lists';
+@import 'engine';
+@import 'forms';
+@import 'old_variables';
+@import 'statistics';
+@import 'restrictions';
+@import 'info';
+@import 'articles';
+@import 'reports';
+@import 'blue_mains';
+@import 'media';
+// COMPONENTS
+@import "components/base"; // Base
+@import "components/new-forms"; //Forms
+@import "components/buttons"; //Buttons
+@import "components/labels"; // Labels
+@import "components/textarea"; // Textarea
+@import "components/inputs"; // Inputs
+@import "components/switch"; // Switch
+@import "components/search"; // Search
+@import "components/dropdowns"; // Dropdowns
+@import "components/new-calendar"; // New calendar
+@import "components/tabs"; // Tabs
+// PAGES
+// Settings
+@import "pages/settings/booking-engine"; // Booking engine

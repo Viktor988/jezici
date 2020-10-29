@@ -1,0 +1,627 @@
+.step1 {
+    display: flex;
+}
+.step2 {
+    display: none;
+}
+.step3 {
+    display: none;
+}
+.step4 {
+    display: none;
+}
+// New reservation form
+.new-reservation-form-wrapper {
+    display: none;
+    top: 50% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    background-color: $color-blue-100;
+    .new-reservation-form {
+        min-height: 65vh;
+        height: auto;
+        border-radius: 20px;
+        display: flex;
+        position: relative;
+        width: 90vw;
+        .subtitle-form {
+            font-size: $size-15;
+            color: $color-gray-100;
+            text-transform: uppercase;
+            font-family: "Poppins Regular";
+        }
+        .icon-close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .left-form {
+            width: 30%;
+            background-color: $color-gray;
+            min-height: 75vh;
+            height: auto;
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+            padding: 60px 75px;
+            //display: flex;
+            flex-direction: column;
+            @media only screen and (max-width: 1540px) {
+                width: 20%;
+            }
+            @media only screen and (max-width: 1025px) {
+                display: none !important;
+            }
+            .illustration {
+                margin-top: 155px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @media only screen and (max-width: 1290px) {
+                    //margin-top: 100px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                &--step4 {
+                    @media only screen and (min-width: 1150px) and (max-width: 1290px) {
+                        margin-top: 100px;
+                    }
+                }
+            }
+            .close {
+                color: $color-gray-100;
+                font-size: $size-14;
+                letter-spacing: 0.7px;
+                font-family: "Poppins Regular";
+                position: absolute;
+                bottom: 65px;
+                cursor: pointer;
+            }
+        }
+        .right-form {
+            min-height: 75vh;
+            width: 70%;
+            height: 100%;
+            padding: 60px 75px;
+            position: relative;
+            @media only screen and (max-width: 1540px) {
+                width: 80%;
+            }
+            @media only screen and (max-width: 1367px) {
+                padding: 60px 35px;
+            }
+            @media only screen and (max-width: 1025px) {
+                width: 100%;
+            }
+            @media only screen and (max-width: 425px) {
+                padding: 60px 15px;
+            }
+            .content-form {
+                height: 67vh;
+                flex-direction: column;
+                overflow: auto;
+                padding-bottom: 30px;
+                padding-right: 10px;
+                // Step 1
+                .info-step1 {
+                    .add-new {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-top: 30px;
+                        margin-bottom: 50px;
+                    }
+                    .calendar {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 255px;
+                        border-radius: 10px;
+                        border: solid 1px #f0f4f7;
+                        position: relative;
+                        width: 100%;
+                        @media only screen and (max-width: 425px) {
+                            height: 250px;
+                        }
+                        @media only screen and (min-width: 780px) {
+                            width: 70%;
+                            margin-left: 15%;
+                        }
+                        span {
+                            color: #f0f4f7;
+                            font-size: 50px;
+                        }
+                    }
+                    #res_rooms_list {
+                      margin-top: 60px;
+                    }
+                    .filter-step1 {
+                        margin-top: 60px;
+                        display: flex;
+                        justify-content: space-between;
+                        @media only screen and (max-width: 801px) {
+                            flex-direction: column;
+                            .custom-dropdown {
+                                width: 90%;
+                            }
+                            .filter-step1-right {
+                                margin-top: 20px;
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                        }
+                        @media only screen and (max-width: 600px) {
+                            .filter-step1-left {
+                                flex-direction: column;
+                                .custom-dropdown {
+                                    width: calc(100% - 35px);
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
+                        .number-rooms {
+                            display: flex;
+                            align-items: center;
+                            .text-form {
+                                margin-right: 10px;
+                            }
+                            &--night {
+                                .text-form {
+                                    margin-left: 10px;
+                                }
+                            }
+                        }
+                        .icons {
+                            display: flex;
+                            align-items: center;
+                            img {
+                                cursor: pointer;
+                            }
+                        }
+                        .input-gray {
+                            margin: 0px 10px;
+                        }
+                        &--new {
+                            margin-top: 12px;
+                        }
+                    }
+                }
+                // Step 2
+                .info-step2 {
+                    .name-surname {
+                        display: flex;
+                        flex-direction: column;
+                        .header-name-username {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 30px;
+                        }
+                        .title-form {
+                            &--small {
+                                //margin-bottom: 30px;
+                            }
+                        }
+                        .add-name-username {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 10px;
+                            .inputs {
+                                display: flex;
+                                align-items: center;
+                                .custom-input {
+                                    margin-right: 30px;
+                                    width: 255px;
+                                }
+                            }
+                            .icons {
+                                display: flex;
+                                align-items: center;
+                                img {
+                                    cursor: pointer;
+                                }
+                            }
+                            @media only screen and (max-width: 600px) {
+                                .inputs {
+                                    flex-direction: column;
+                                    width: 100%;
+                                    align-items: flex-start;
+                                    .custom-input {
+                                        width: calc(100% - 35px) !important;
+                                        margin-bottom: 10px;
+                                        margin-right: 0px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .add-new {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-top: 30px;
+                        margin-bottom: 50px;
+                    }
+                    .search {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .summary {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 65px;
+                        .person-number {
+                            display: flex;
+                            align-items: center;
+                            .info-number {
+                                display: flex;
+                                align-items: center;
+                                margin-right: 30px;
+                                .avatar {
+                                    width: 50px;
+                                    height: 50px;
+                                    background-color: #f0f4f7;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    margin-right: 10px;
+                                    border-radius: 50%;
+                                    img {
+                                        height: 25px;
+                                    }
+                                }
+                            }
+                            .number {
+                                display: flex;
+                                align-items: center;
+                                .btn-number {
+                                    width: 30px;
+                                    height: 34px;
+                                    border-radius: 5px;
+                                    border: solid 2px $color-blue;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    cursor: pointer;
+                                    span {
+                                        font-size: $size-14;
+                                        color: $color-white;
+                                    }
+                                }
+                                .text-form {
+                                    margin: 0px 10px;
+                                }
+                            }
+                        }
+                        @media only screen and (max-width: 600px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            .person-number {
+                                justify-content: space-between;
+                                width: 100%;
+                                margin-top: 20px;
+                            }
+                        }
+                    }
+                    .filter-step2 {
+                        margin-top: 60px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .custom-dropdown {
+                            width: 60%;
+                            @media only screen and (max-width: 768px) {
+                                width: 55%;
+                            }
+                            @media only screen and (max-width: 600px) {
+                                width: 40%;
+                            }
+                        }
+                        .total-guests {
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                            .text-form {
+                                margin-right: 35px;
+                            }
+                        }
+                        @media only screen and (max-width: 425px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            .custom-dropdown {
+                                width: calc(100% - 35px);
+                                margin-bottom: 20px;
+                            }
+                            .total-guests {
+                                width: 100%;
+                                justify-content: space-between;
+                            }
+                        }
+                    }
+                }
+                // Step 3
+                .info-step3 {
+                    .title-form {
+                        margin-bottom: 30px;
+                        display: block;
+                    }
+                    .entered-data {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 40px;
+                        .entered-data-info {
+                            padding-left: 30px;
+                            display: flex;
+                            flex-direction: column;
+                            &--right {
+                                margin-right: 125px;
+                            }
+                        }
+                    }
+                    .price-info {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        .price-left {
+                            display: flex;
+                            padding-left: 30px;
+                            align-items: center;
+                        }
+                        .price-right {
+                            display: flex;
+                            flex-direction: column;
+                            padding-left: 30px;
+                        }
+                        .text-form {
+                            margin-right: 45px;
+                        }
+                        @media only screen and (max-width: 600px) {
+                            flex-direction: column;
+                            .price-left {
+                                padding-left: 0px;
+                                margin-bottom: 25px;
+                                justify-content: space-between;
+                                width: 100%;
+                            }
+                            .price-right {
+                                padding-left: 0px;
+                                justify-content: space-between;
+                                width: 100%;
+                            }
+                        }
+                    }
+                    .remaining-amount {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    .additional-services {
+                        display: flex;
+                        align-items: flex-start;
+                        margin-bottom: 40px;
+                        .inputs-additional-services {
+                            .custom-input {
+                                margin-bottom: 15px;
+                                margin-right: 10px;
+                                text-align: center;
+                            }
+                            @media only screen and (max-width: 600px) {
+                                .custom-input {
+                                    width: calc(100% - 20px) !important;
+                                }
+                            }
+                        }
+                        .icons {
+                            display: flex;
+                            align-items: center;
+                            img {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    .add-new {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-top: 30px;
+                        margin-bottom: 50px;
+                    }
+                }
+                // Step 4
+                .info-step4 {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                    .text-form {
+                        margin-bottom: 15px;
+                    }
+                    @media only screen and (max-width: 425px) {
+                        flex-direction: column;
+                    }
+                }
+                .note-step4 {
+                    margin-top: 34px;
+                    display: flex;
+                    flex-direction: column;
+                    .custom-textarea {
+                        margin-top: 30px;
+                    }
+                    img {
+                        height: 15px;
+                        margin-left: 25px;
+                        cursor: pointer;
+                    }
+                }
+            }
+            // FOOTER
+            .footer {
+                height: 8vh;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                position: relative;
+                .shadow-scroll {
+                    position: absolute;
+                    top: -50px;
+                    width: 100%;
+                    left: 0px;
+                    height: 50px;
+                    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff 82%);
+                }
+
+                .circles {
+                    display: flex;
+                    align-items: center;
+                    .circle {
+                        width: 8px;
+                        height: 8px;
+                        background-color: $color-gray-200;
+                        border-radius: 50%;
+                        margin: 0px 3px;
+                        cursor: pointer;
+                    }
+                    .active-circle {
+                        background-color: $color-red;
+                    }
+                }
+                .btn-blue {
+                    margin-left: 40px;
+                }
+                .step1 {
+                    img {
+                        width: 15px;
+                    }
+                }
+                .step2 {
+                    img {
+                        width: 15px;
+                    }
+                }
+                .step3 {
+                    img {
+                        width: 15px;
+                    }
+                }
+                .step4 {
+                    text-align: center;
+                    span {
+                        width: 100%;
+                    }
+                }
+            }
+
+        }
+        //&::before {
+        //    height: 100%;
+        //    width: 100%;
+        //    border-radius: 20px;
+        //    display: flex;
+        //    background-color: red;
+        //    position: absolute;
+        //    opacity: 40%;
+        //}
+    }
+}
+.custom-icons-forms {
+    box-shadow: none;
+    background-color: transparent;
+    display: flex;
+    .list_action {
+        box-shadow: none;
+        background-color: transparent;
+    }
+    .list_action_icon.edit {
+        content: none;
+    }
+    .list_action_icon.delete {
+        content: none;
+    }
+}
+.w-40 {
+    width: 40px;
+}
+.custom-item {
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+    display: flex;
+    img {
+        width: 15px;
+        height: auto !important;
+    }
+}
+.confirm_quest_email2 {
+    z-index: 9999999999;
+    border: none;
+}
+.changeEmail {
+    z-index: 9999999999;
+}
+
+// New guest form
+// POPUP
+#form_guest .form {
+
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px #CECECE;
+    background-color: $color-white;
+    padding: 30px;
+    padding-bottom: 100px;
+    .header-popup {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+    .content-popup {
+        display: flex;
+        flex-direction: column;
+        @media only screen and (max-height: 736px) {
+            height: 355px;
+            overflow: auto;
+        }
+        @media only screen and (max-height: 640px) {
+            height: 285px;
+            overflow: auto;
+        }
+        .popup-element {
+            display: flex;
+            justify-content: space-around;
+            .checkbox-popup {
+                width: calc(100% - 30px);
+                padding: 0px 20px;
+                justify-content: space-between;
+            }
+        }
+        .custom-input {
+            margin-bottom: 20px;
+            width: calc(100% - 30px);
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        .custom-dropdown {
+            width: calc(100% - 30px);
+            margin-left: 15px;
+            margin-right: 15px;
+            height: 50px;
+            padding: 0px 20px;
+            .dropdown-icon {
+                top: 20px;
+            }
+        }
+    }
+    .footer-popup {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        padding: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: calc(100% - 60px);
+    }
+}

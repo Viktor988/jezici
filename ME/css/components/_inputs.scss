@@ -1,0 +1,67 @@
+.custom-input {
+    background-color: $color-gray;
+    height: 50px;
+    width: auto;
+    border-radius: 10px;
+    color: $color-blue;
+    font-size: $size-14;
+    border: none;
+    padding: 0px 20px;
+    box-shadow: none;
+    @media only screen and (max-width: 801px) {
+        width: 200px !important;
+    }
+    &::placeholder {
+        color: $color-gray-100;
+        font-size: $size-14;
+        font-family: "Poppins Regular";
+    }
+    &:focus {
+        background-color: $color-white;
+        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.08);
+    }
+}
+.input-small {
+    width: 70px;
+    height: 45px;
+    border-radius: 8px;
+    border: solid 1px $color-gray-300;
+    color: $color-blue;
+    font-size: $size-14;
+    font-family: "Poppins Regular";
+    margin-right: 10px;
+    text-align: center;
+    &::placeholder {
+        font-family: "Poppins Regular";
+        font-size: $size-14;
+        color: $color-gray-100;
+    }
+}
+.input-gray {
+    width: 70px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: $color-gray;
+    color: $color-blue;
+    font-family: "Poppins SemiBold";
+    text-align: center;
+    font-size: $size-16;
+    border: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#form_res_non_discounted_price {
+  margin-right: 10px;
+    margin-left: auto;
+    text-decoration: line-through;
+}

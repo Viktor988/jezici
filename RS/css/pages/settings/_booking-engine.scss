@@ -1,0 +1,201 @@
+.content-booking-engine {
+    width: 100%;
+    padding: 0px 30px;
+    display: flex;
+    @media only screen and (max-width: 1200px) {
+        flex-direction: column;
+        .left {
+            width: calc(100% - 60px) !important;
+        }
+        .right {
+            width: calc(100% - 60px) !important;
+        }
+    }
+    .content {
+        display: block;
+        padding: 30px 15px !important;
+        .title-booking-engine {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 0px 30px;
+            img {
+                height: 40px;
+                width: auto;
+                margin-right: 10px;
+                margin-left: 20px;
+            }
+            .title {
+                font-family: "Poppins Regular";
+                font-size: $size-16;
+                color: $darkBlue;
+            }
+        }
+        .flex-grid {
+            margin: 10px 0px;
+        }
+        #new_promocode_container {
+            .custom-textarea {
+                &--booking-engine {
+                    width: calc(100% - 40px) !important;
+                }
+            }
+            .select2-container {
+                width: 100% !important;
+                .select2-selection__rendered {
+                    padding: 0px 20px;
+                }
+                .select2-selection__arrow {
+                    right: 20px;
+                }
+                .number_input {
+                    margin-bottom: 20px !important;
+                }
+            }
+        }
+        #new_policy_container {
+            .custom-textarea {
+                &--booking-engine {
+                    width: calc(100% - 40px) !important;
+                }
+            }
+            .select2-container {
+                width: 100% !important;
+                .select2-selection__rendered {
+                    padding: 0px 20px;
+                }
+                .select2-selection__arrow {
+                    right: 20px;
+                }
+                .number_input {
+                    margin-bottom: 20px !important;
+                }
+            }
+        }
+        section.half {
+            padding: 0px !important;
+            width: 100% !important;
+            margin-bottom: 0px !important;
+            .list_names {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+            .list_row {
+                margin: 30px 15px !important;
+                padding: 20px 0px !important;
+                width: calc(100% - 30px) !important;
+                min-height: 120px !important;
+                border-radius: 4px !important;
+                box-shadow: 0 8px 30px 0 rgba(0, 5, 58, 0.05) !important;
+                font-size: $size-12 !important;
+                &:hover {
+                    background-color: transparent !important;
+                }
+                .policy_description {
+                    font-size: $size-12 !important;
+                }
+                .policy_actions {
+                    display: flex;
+                    flex-direction: column !important;
+                }
+                .promocode_actions {
+                    display: flex;
+                    flex-direction: column !important;
+                }
+            }
+            .list_row > div {
+                padding: 0px 15px !important;
+            }
+            .list_row:hover > div {
+                border-color: $listBorderColor !important;
+            }
+            .flex_between {
+                max-width: 1000px !important;
+            }
+        }
+        .section_title {
+            text-align: left;
+            margin: 30px 0px !important;
+            font-size: $size-16;
+            &--margin {
+                margin: 20px 0px 15px 0px !important;
+            }
+        }
+        .add_button {
+            background-color: $darkBlue;
+        }
+        #promocodes_list {
+            margin-top: 45px !important;
+        }
+        #policies_list {
+            margin-top: 45px !important;
+        }
+        .confirm_button {
+            background-color: $darkBlue;
+            margin: 30px 0px 0px 0px;
+            min-width: 138px;
+        }
+        .cancel_button {
+            margin: 30px 20px 0px 0px;
+            min-width: 138px;
+        }
+        .empty {
+            padding-bottom: 0px;
+            padding-top: 0px;
+        }
+        input {
+            width: 100% !important;
+            padding: 0px 30px !important;
+        }
+        label {
+            margin: 0px !important;
+        }
+    }
+    .left {
+        width: calc(50% - 30px);
+        .select-options-custom {
+            display: flex;
+            .select2-container {
+                width: 100% !important;
+                .select2-selection__rendered {
+                    padding: 0px 15px;
+                }
+                .select2-selection__arrow {
+                    right: 15px !important;
+                }
+            }
+        }
+    }
+    .right {
+        width: calc(50% - 30px);
+    }
+    .custom-box {
+        box-shadow: 0 0 6px 0 $shadowColor;
+        background-color: $color-white;
+        height: auto;
+        margin: 0px 15px;
+        margin-bottom: 30px;
+    }
+    .custom_checkbox {
+        box-shadow: none !important;
+        background-color: $color-black-100;
+        width: 20px;
+        height: 20px;
+    }
+    .checkbox_value.checked {
+        content: url("../img/checkmark-16.png") !important;
+    }
+    .list_action {
+        box-shadow: none;
+        padding: 5px;
+        img {
+            width: 16px;
+        }
+        .list_action_icon.edit {
+            content: url("../img/edit.svg");
+        }
+        .list_action_icon.delete {
+            content: url("../img/trash.svg");
+        }
+    }
+}

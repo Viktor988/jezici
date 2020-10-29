@@ -1,0 +1,45 @@
+.custom-search {
+    width: calc(100% - 120px);
+    position: relative;
+    img {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        z-index: 10;
+        height: 14px;
+    }
+    input {
+        position: relative;
+        padding-left: 35px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: $color-gray;
+        border: none;
+        color: $color-blue;
+        font-size: $size-12;
+        font-family: "Poppins Regular";
+        width: 100%;
+        &::placeholder {
+            color: $color-gray-100;
+            font-size: $size-12;
+            font-family: "Poppins Regular";
+        }
+    }
+}
+.custom-search-header {
+    height: 55px;
+    background-color: transparent !important;
+    color: #a9abb8 !important;
+    font-size: $size-16;
+    font-family: "Poppins Light";
+    border-radius: 60px;
+    border: 2px solid #a9abb8 !important;
+    box-shadow: none;
+    padding: 0px 30px;
+    background-position: 90% 50% !important;
+    &::placeholder {
+        color: #a9abb8 !important;
+        font-size: $size-16;
+        font-family: "Poppins Light";
+    }
+}

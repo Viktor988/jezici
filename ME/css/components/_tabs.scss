@@ -1,0 +1,31 @@
+.custom-header {
+    padding-left: 0px;
+    .tab_nav {
+        padding-left: 50px;
+    }
+    .new-design-tab {
+        padding-left: 0px;
+        .tab_nav_button {
+            height: 93px;
+            background-color: transparent;
+            padding: 0px 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 0px;
+            border-top-right-radius: 35px;
+            border-top-left-radius: 35px;
+            span {
+                font-family: "Poppins Medium";
+                color: $color-gray-400;
+                font-size: $size-26;
+            }
+        }
+        .tab_nav_button.selected {
+            background-color: $lightBlue;
+            span {
+                color: $color-white;
+            }
+        }
+    }
+}

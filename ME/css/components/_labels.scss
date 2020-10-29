@@ -1,0 +1,52 @@
+.title-form {
+    color: $color-blue;
+    font-size: $size-24;
+    font-family: "Poppins SemiBold";
+    &--small {
+        font-size: $size-16;
+    }
+    &--medium {
+        font-family: "Poppins Medium";
+    }
+}
+.text-form {
+    color: $color-blue;
+    font-size: $size-14;
+    font-family: "Poppins Medium";
+    &--regular {
+        font-family: "Poppins Regular";
+    }
+}
+.label-form {
+    color: $color-gray-100;
+    font-size: $size-12;
+    font-family: "Poppins Medium";
+    &--regular {
+        font-family: "Poppins Regular";
+    }
+}
+.info-rectangle {
+    width: 70px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: $color-gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-blue;
+    font-family: "Poppins SemiBold";
+    border: none;
+    text-align: center;
+    &--orange {
+        color: $color-red;
+    }
+    &--update {
+        border: none;
+        margin: 0px 5px;
+        height: 34px;
+        text-align: center;
+        width: 30px;
+        border-radius: 0px;
+        background-color: transparent;
+    }
+}
