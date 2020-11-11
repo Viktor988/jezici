@@ -8,7 +8,8 @@ $(document).ready(function(){
   });
   // New
   $("#new_price").click(function(){ // Clear values and show form
-
+    var jezik=$("#lan").val();
+    if(jezik==1 || jezik=='-1'){
     $("#new_price_name").val("");
     set_switch("new_price_type", 1);
     $(".new_price_virtual").show();
@@ -27,7 +28,19 @@ $(document).ready(function(){
     // Hide open edits
     $("#edit_price_container").remove();
     $(".pricing_plan.selected").removeClass("selected");
+    }
+    else{
+      $("#pricemore").css('display','block');
+      $("#new_price").hide();
+    }
   });
+
+  //hide form
+  $("#new_price_cancelmore").click(function(){
+    $("#pricemore").css('display','none');
+    $("#new_price").show();
+  })
+
   $("body").on("click", "#new_price_type", function(){ // Toggle virtual plan form
     let val = $("#new_price_type").attr("data-value");
     if(val == 1)

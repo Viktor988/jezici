@@ -29,6 +29,7 @@
     <script type="text/javascript" src="js/global.js?v=108"></script>
     <script type="text/javascript" src="js/input.js?v=108"></script>
     <script type="text/javascript" src="js/navigation.js?v=108"></script>
+    <script  type="text/javascript" src="js/changeNameFields.js"></script>
     <script type="text/javascript" src="js/home.js?v=108"></script>
     <script type="text/javascript" src="js/login.js?v=108"></script>
     <script type="text/javascript" src="js/reservations.js?v=108"></script>
@@ -153,6 +154,7 @@
         <div class='tab_nav'>
           <div class='tab_nav_button' id='tab_nav_changelog'><span> Changelog </span></div>
         </div>
+    
         <input type='text' class='text_input' id='search' placeholder='Search...'>
         <select id='property_select'>
         </select>
@@ -1477,7 +1479,13 @@
           <div class='settings_nav_button' id='settings_nav_users'>Users</div>
         </div>
         <!--    Booking engine start    -->
+        <div id="language">
+          <select id="lan" class="basic_select" name="language">
+
+          </select>
+        </div>
         <div class='tab' id='tab_engine'>
+          
             <div class="content-booking-engine">
                 <div class="left">
                     <div class="custom-box">
@@ -1487,14 +1495,16 @@
                                     <img src="img/settings.svg" alt="">
                                     <span class="title">Settings</span>
                                 </div>
-                                <div id="language">
+                                <!-- <div id="language">
                                   <select id="lan" name="language">
                                     <option value="en">Eng</option>
                                     <option value="rs">Rs</option>
                                     <option value="me">Mne</option>
                                   </select>
+                                  <button type="button" id="lanbutton"class="btn btn-primary mb-2">Add</button><br/>
+  
 
-                                </div>
+                                </div> -->
                                 <div class='section_title w-100'> Display</div>
                                 <div class=" flex-grid m-10-0">
                                     <div class="col w-50">
@@ -1699,7 +1709,8 @@
                                     </div>
                                 </div>
                                 <div class="flex_center justify-content-end w-100">
-                                    <button onClick="updateData()" class='confirm_button'>SAVE</button>
+                                    <button onClick="updateData()" id="updatenameanddesc" class='confirm_button'>SAVE</button>
+                                    <button id="lanbutton" class='confirm_button'>SAVE</button>
                                 </div>
                                 <div class='section_title w-100'> Date selection step</div>
                                 <div class=" flex-grid">
@@ -1914,7 +1925,35 @@
                                         <button class='cancel_button' id='new_promocode_cancel'> CANCEL</button>
                                         <button class='confirm_button' id='new_promocode_confirm'> CONFIRM</button>
                                     </div>
-                                </div>
+                                    <!-- <a href="javascript:void(0)" id="addpromocode">Add promocode on another language</a> -->
+           
+            
+         
+                                  </div>
+                                  <div id="addanotherpromocode">
+                                    <div id="languageall">
+                                      
+                                    
+                                    <div id="insertformpromocode">
+                                      
+                                      <span>Promo Code:</span><br/>
+                                    <select class="basic_select" id="promocodemore">
+                    
+                                      
+                                    </select><br/>
+                                    <span>Name:</span><br/>
+                                    <input type="text" class="text_input" placeholder="Name" id="newnamepromocode"/><br/>
+                                    <span>Description:</span><br/>
+                                    <textarea class="textarea_input" id="newdescpromocode" placeholder="Description"></textarea><br/>
+                                    <button class='cancel_button' id='new_promocode_cancelmore'> CANCEL</button><span> </span>
+                                      <button type="button" id="addmorepromocode"class="confirm_button">Add promocode</button><br/>
+                                    </div>
+                  
+                  
+                              </div>
+
+
+                            </div>
                             </section>
                         </div>
                     </div>
@@ -1969,7 +2008,38 @@
                                         <button class='cancel_button' id='new_policy_cancel'> CANCEL</button>
                                         <button class='confirm_button' id='new_policy_confirm'> CONFIRM</button>
                                     </div>
+                                    <!-- <a href="javascript:void(0)" id="addmorepolicies">Add policies on another language</a> -->
+
                                 </div>
+                                <div id="addpolicies">
+                                  <div id="languagepolicies">
+                                    
+                                  <!-- <button type="button" id="showinsertformpolicies"class="btn btn-primary mb-2">Show insert form</button><br/> -->
+                                  <div id="insertformpolicies">
+                                    <span>Policy name</span><br/>
+                                  <select class="basic_select policiesm" id="policiesmore">
+                  
+                                    
+                                  </select><br/>  <span>Name</span>
+                                  <br>
+                                  <input type="text" class="form-control" placeholder="Name" id="newnamepolicies"/><br/>
+                                  <span>Description</span><br/>
+                                  <textarea class="form-control" id="newdescpolicies" placeholder="Description"></textarea><br/>
+                              
+                                  <br/><button class='cancel_button' id='new_policies_cancelmore'> CANCEL</button><span> </span>
+                                    <button type="button" id="addmorepoliciesanotherlanguage"class="confirm_button">Add policies</button><br/>
+                                  </div>
+                  
+                                </div>
+                                <div id="tableroom">
+                                  <!-- <select class="form-control" id="roomsmore">
+                  
+                  
+                                  </select> -->
+                  
+                                </div>
+                  
+                              </div>
                             </section>
                         </div>
                     </div>
@@ -2002,7 +2072,8 @@
                                     </section>
                                 </div>
                                 <div class='flex_center d-flex justify-content-end'>
-                                    <button onClick="updateMessages()" class='confirm_button'>SAVE</button>
+                                    <button onClick="updateMessages()" id="updatemessage" class='confirm_button'>SAVE</button>
+                                    <button id="insertmessage" class='confirm_button'>SAVE</button>
                                 </div>
                             </div>
                         </div>
@@ -2576,7 +2647,34 @@
                 <button class='cancel_button' id='new_price_cancel'> CANCEL </button>
                 <button class='confirm_button' id='new_price_confirm'> CONFIRM </button>
               </div>
+              
+             
             </div>
+              <div id="pricemore">
+               
+
+                <span>Price list</span><br/>
+                <select class="basic_select" id="pricelistmore"><br/>
+  
+  
+                </select><br/>
+                            
+                
+                  <span>Name:</span><br/>
+                  <input type="text" class="text_input" id="nameprice" placeholder="Name">
+                <br/>
+                
+                <span>Description:</span><br/>
+                  <textarea class="textarea_input" id="pricedescription" placeholder="Description" rows="3"></textarea>
+                  <br/>
+                  <button class='cancel_button' id='new_price_cancelmore'> CANCEL </button><span> </span>
+                  <button type="button" id="addnewprice" class="confirm_button">Add pricing</button>
+                  <br/>
+                  
+                </div>
+               
+
+              
           </section>
           <section class='half' id='restrictions_section'>
             <div class="section_title">
@@ -2613,13 +2711,76 @@
           <section class='half white' id='rooms_section'>
             <div class="section_title">
               Room settings
+              
             </div>
+            <!-- <div id="dddd" class="roomlanguage">
+                  <select id="roomlanguageAll">
+                    
+                  </select>
+              
+
+            </div> -->
             <div class='flex_between' id='room_settings_header'>
+              <div id="selectrooms1">
               <select class='real_room_select basic_select' id='room_settings_active'>
                 <option value=-1> Select room </option>
               </select>
+            </div>
+            
+              
+              <div id="selectrooms2">
+              <select class='real_room_select basic_select' id='room_settings_activeAnotherLanguage'>
+                
+              </select>
+              </div>
               <button class='confirm_button' id='new_room'> Add room </button>
               <img class="list_action_icon delete" id='delete_room' style='display:none;width:20px;height:20px;cursor:pointer' title="Delete">
+             
+            </div>
+            <div id="updatedForm">
+            <div id='room_settings_inputs2' class='bootstrap'>
+              <div class="row">
+                <div class="col-md-12">
+          				<div class="form-group">
+          					<label class="has-float-label">
+          						<input
+          						type="text"
+          						class="form-control rounded"
+          						id="room_settings_nameMore"
+          						name="unit-name"
+          						placeholder="&nbsp"
+          					/>
+          					<span>Name</span>
+          				
+          					</label>
+          				</div>
+          			</div>
+              </div>
+              <div id='room_settings_inputs2' class='bootstrap'>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="has-float-label">
+                        <textarea
+                        
+                        class="form-control rounded"
+                        id="room_description_more"
+                        name="unit-name"
+                        placeholder="&nbsp"
+                      ></textarea>
+                      <span>Description</span>
+                    
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+
+                    <br/>
+                    <button class='cancel_button' id='add_more_room_cencel'> CANCEL</button><span> </span>
+                    <button class='confirm_button' id='add_more_room_confirm'> CONFIRM</button><br/>
+                    </div>
             </div>
             <div id='room_settings_inputs' class='bootstrap'>
               <div class="row">
@@ -2973,12 +3134,58 @@
               <button class='confirm_button' id='all_rooms_amenities_confirm'> ADD </button>
 
             </div>
+            </div>
+            <!-- <a href="javascript:void(0)" id="addroom">Add room on another language</a><br/> -->
+            <div id="addanotherroom">
+              
+             <br/>
+              <div id="insertform">
+                <br/>
+                <span>Rooms</span><br/>
+              <select class="roomsmore_select basic_select" id="roomsmore">
+
+                
+              </select><br/> <span>Room name</span><br/>
+              <input type="text" class="text_input" placeholder="Name" id="newname"/><br/>
+              <span>Description</span><br/><br/>
+              <textarea class="custom-textarea" id="newdesc" placeholder="Description"></textarea><br/>
+              
+
+                <button class='cancel_button' id='roommore_settings_cancel'> CANCEL </button>
+                <button type="button" id="addmoreroom"class="confirm_button">Add room</button><br/>
+                
+
+
+
+              </div>
+
+           
+            <div id="tableroom">
+              <!-- <select class="form-control" id="roomsmore">
+
+
+              </select> -->
+
+            </div>
+
+          </div>
+           
+
+                
+              
+           
+            
+         
+            
+        
+           
           </section>
           <section class='half' id='extras_section'>
             <div class="section_title">
               Extras
             </div>
             <div id='extras_list'>
+              
             </div>
             <div class="flex_center">
               <button class='add_button' id='new_extra'> + </button>
@@ -3082,7 +3289,53 @@
                 <button class='cancel_button' id='new_extra_cancel'> CANCEL </button>
                 <button class='confirm_button' id='new_extra_confirm'> CONFIRM </button>
               </div>
-            </div>
+
+              
+           
+            
+         
+              <!-- <div id="addanotheextras">
+                  <div id="languageall">
+                   
+                  
+                  <div id="insertformextras">
+                    
+                    <span>Extras:</span><br/>
+                  <select class="basic_select" id="extrasmore">
+  
+                    
+                  </select><br/>
+                  <span>Name:</span><br/>
+                  <input type="text" class="text_input" placeholder="Name" id="newnameextras"/><br/>
+                  <span>Description:</span><br/>
+                  <textarea class="textarea_input" id="newdescextras" placeholder="Description"></textarea><br/>
+
+                    <button type="button" id="addmoreextras"class="confirm_button">Add extras</button><br/>
+                 </div -->
+
+
+            </div> 
+            <div id="addanotheextras">
+              <div id="languageall">
+               
+              
+              <div id="insertformextras">
+                
+                <span>Extras:</span><br/>
+              <select class="basic_select" id="extrasmore">
+
+                
+              </select><br/>
+              <span>Name:</span><br/>
+              <input type="text" class="text_input" placeholder="Name" id="newnameextras"/><br/>
+              <span>Description:</span><br/>
+              <textarea class="textarea_input" id="newdescextras" placeholder="Description"></textarea><br/>
+
+              <button class='cancel_button' id='new_extra_cancelMore'> CANCEL </button> <span> </span> <button type="button" id="addmoreextras"class="confirm_button">Add extras</button><br/>
+              </div>
+
+
+        </div>
           </section>
           <section class='half' id='channels_section'>
             <div class="section_title">
@@ -3694,7 +3947,7 @@
   		<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
   		<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
       <script src="js/settings/new-rooms.js"></script>
-      <script src="js/changeNameFields.js"></script>
+     
 
   </body>
 

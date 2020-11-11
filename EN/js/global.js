@@ -1,7 +1,8 @@
 // Connection data
-var api_link = "https://admin.otasync.me/api/web/"; // Change to https://admin.otasync.me/api/web/ when accessing from a remote location
+var api_link = "http://viktor.otasync.me/api/web/"; // Change to https://admin.otasync.me/api/web/ when accessing from a remote location
 //var api_link = "https://admin.otasync.me/api/web/";
 // Basic account data, will be set on login
+
 var main_lcode = undefined;
 var main_key = undefined;
 var account_name = undefined;
@@ -182,6 +183,7 @@ function check_json(json) {
   }
   catch (e) {
     console.log(json);
+    console.log(e);
     $(".button_loader").removeClass("button_loader");
     return {
       status: "JSON parsing failed"

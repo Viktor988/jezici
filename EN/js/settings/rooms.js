@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+
+
+  
+
 //  All amenities
 $("#all_rooms_amenities_confirm").click(function(){
   let amenities = $("#all_rooms_amenities").val();
@@ -237,8 +241,9 @@ $("#new_extra_predefined").change(function(){ // Add predefined values
     $(`#new_extra_image`).hide();
   }
 });
-$("#new_extra").click(function(){ // Clear values and show form
-
+$("#new_extra").click(function(){// Clear values and show form
+var jezik=$("#lan").val();
+  if(jezik==1 || jezik=='-1'){
   $("#new_extra_name").val("");
   $("#new_extra_predefined").prop("selectedIndex", 0).change();
   $("#new_extra_variation").prop("selectedIndex", 0).change();
@@ -259,11 +264,22 @@ $("#new_extra").click(function(){ // Clear values and show form
   // Hide open edits
   $("#edit_extra_container").remove();
   $(".extra.selected").removeClass("selected");
+  }
+  else{
+    $("#addanotheextras").css('display','block');
+
+    $("#new_extra").hide();
+  }
 });
 $("#new_extra_cancel").click(function(){  // Hide form
   $("#new_extra_container").hide();
   $("#new_extra").show();
 });
+$("#new_extra_cancelMore").click(function(){ //hide form
+  $("#addanotheextras").css('display','none');
+  $("#new_extra").show();
+})
+
 $("body").on("click", "#new_extra_confirm", function(){  // Insert new
   // Loaders
   $("#new_extra_confirm, #new_extra_cancel").addClass("button_loader");
@@ -830,6 +846,7 @@ $("#channels_list").on("click", ".delete", function(){ // Show dialog and delete
 });
 
 function get_rooms(){
+
   $.ajax({
     url: api_link + 'data/rooms/',
     method: 'POST',
@@ -882,6 +899,7 @@ function display_rooms(){
   $("#room_settings_cancel").click(); // Hide form
 }
 
+
 function get_extras(){
   $.ajax({
     url: api_link + 'data/extras/',
@@ -914,6 +932,8 @@ function get_extras(){
     }
   });
 }
+
+
 
 function display_extras(){
   // List

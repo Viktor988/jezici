@@ -11,18 +11,49 @@
         $action = getAction();
         $lcode = checkPost("lcode");
         $result = [];
+        
 
         if($action == "header"){
+          
             $sql = "SELECT * FROM engine_header WHERE lcode = '$lcode'";
+           
             $header = mysqli_query($konekcija, $sql);
 
             if($header){
                 $result = mysqli_fetch_assoc($header);
             }
             else{
+          
                 http_response_code(500);
             }
         }
+
+        if($action =="getHeaderOnAnotherLanguage"){
+          $id=checkPost("idlanguage");
+          $sql = "SELECT * FROM engine_headerlanguage WHERE idlcode = '$lcode' and idlanguage='$id'";
+          $header = mysqli_query($konekcija, $sql);
+          if($header){
+            $result = mysqli_fetch_assoc($header);
+        }
+        else{
+      
+            http_response_code(500);
+        }
+        }
+        if($action =="getFooterOnAnotherLanguage"){
+          $id=checkPost("idlanguage");
+          $sql = "SELECT * FROM engine_footerlanguage WHERE idlcode = '$lcode' and idlanguage='$id'";
+          $header = mysqli_query($konekcija, $sql);
+          if($header){
+            $result = mysqli_fetch_assoc($header);
+        }
+        else{
+      
+            http_response_code(500);
+        }
+        }
+
+              
         if($action == "contact"){
 
             $sql = "SELECT * FROM engine_contact WHERE lcode = '$lcode'";
@@ -52,6 +83,8 @@
             }
 
         }
+
+        
         if($action == "confirmation"){
 
             $sql = "SELECT * FROM engine_confirmation WHERE lcode = '$lcode'";
@@ -66,8 +99,9 @@
 
         }
         if($action == "footer"){
-
+        
             $sql = "SELECT * FROM engine_footer WHERE lcode = '$lcode'";
+           
             $footer = mysqli_query($konekcija, $sql);
 
             if($footer){
@@ -92,8 +126,9 @@
 
         }
         if($action == "messages"){
-
+         
             $sql = "SELECT * FROM engine_messages WHERE lcode = '$lcode'";
+         
             $messages = mysqli_query($konekcija, $sql);
 
             if($messages){
@@ -104,9 +139,22 @@
             }
 
         }
+        if($action =="getMessageOnAnotherLanguage"){
+          $id=checkPost("idlanguage");
+          $sql = "SELECT * FROM engine_messagelanguage WHERE idlcode = '$lcode' and idlanguage='$id'";
+          $header = mysqli_query($konekcija, $sql);
+          if($header){
+            $result = mysqli_fetch_assoc($header);
+        }
+        else{
+      
+            http_response_code(500);
+        }
+        }
         if($action == "promocode"){
-
+         
             $sql = "SELECT * FROM promocodes_$lcode;";
+         
             $promocode = mysqli_query($konekcija, $sql);
 
             if($promocode){
@@ -120,6 +168,25 @@
             }
 
         }
+
+        if($action == "getPromocodeOnAnotherLanguage"){
+         $id=checkpost('idlanguage');
+          $sql = "SELECT id,code,target,value,type,created_by,idlanguage,namePromoCode,DescriptionPromoCode FROM promocodes_$lcode as p 
+          inner join  promocodelanguage as pl on p.id=pl.idpromocode where pl.lcode='$lcode' and pl.idlanguage='$id'";
+       
+          $promocode = mysqli_query($konekcija, $sql);
+
+          if($promocode){
+              $result = array();
+              while($r = mysqli_fetch_assoc($promocode)) {
+                  $result[] = $r;
+              }
+          }
+          else{
+              http_response_code(500);
+          }
+
+      }
         if($action == "extras"){
           $dfrom = checkPost("dfrom");
           $dto = checkPost("dto");
@@ -128,7 +195,9 @@
             $rooms = json_decode($rooms);
 
           $extras = [];
+          
           $sql = "SELECT name, description, type, price, pricing, daily, rooms, image, tax FROM extras_$lcode";
+         
           $rezultat = mysqli_query($konekcija, $sql);
           while($red = mysqli_fetch_assoc($rezultat)){
             $included_rooms = json_decode($red["rooms"]);
@@ -147,6 +216,51 @@
           }
           $result = $extras;
         }
+
+        if($action == "getExtrasOnAnotherLanguage"){
+          $dfrom = checkPost("dfrom");
+          $dto = checkPost("dto");
+          $rooms = checkPost("rooms");
+          $id=checkPost('idlanguage');
+          if(!(is_array($rooms)))
+            $rooms = json_decode($rooms);
+
+          $extras = [];
+          
+          $sql = "SELECT nameExtras, descriptionExtras,idlanguage, type, price, pricing, daily, rooms, image, tax 
+          FROM extras_$lcode as e inner join extraslanguage as el on e.id=el.idextras where el.idlanguage='$id'
+          and el.lcode='$lcode'";
+         
+          $rezultat = mysqli_query($konekcija, $sql);
+          while($red = mysqli_fetch_assoc($rezultat)){
+            $included_rooms = json_decode($red["rooms"]);
+            $red["included"] = 0;
+            for($i=0;$i<sizeof($rooms);$i++){
+              if(in_array($rooms[$i], $included_rooms))
+                $red["included"] += 1;
+            }
+            $red["price"] = ($red["price"] + ($red["price"] * $red["tax"] / 100)) * $red["pricing"];
+            unset($red["pricing"]);
+            unset($red["rooms"]);
+            unset($red["tax"]);
+            if($red["image"] == "")
+              $red["image"] = "https://admin.otasync.me/img/blank.png";
+            array_push($extras, $red);
+          }
+          $result = $extras;
+        }
+        if($action == "language"){
+        $lan = [];
+        $sql = "SELECT * FROM languages";
+        $rez = mysqli_query ($konekcija, $sql);
+        if($rez){
+          $result = array();
+          while($r = mysqli_fetch_assoc($rez)) {
+              $result[] = $r;
+          }
+      }
+        }
+
         if($action == "lcode"){
             $lcode = checkPost("lcode");
             $sql = "SELECT COUNT(*) AS broj FROM all_properties WHERE lcode = '$lcode'";
@@ -179,15 +293,21 @@
 
           // Rooms
           $rooms = [];
+        
           $sql = "SELECT * FROM rooms_$lcode WHERE booking_engine = 1 AND occupancy >= $guests";
+          
           $rezultat = mysqli_query($konekcija, $sql);
+         
           while($red = mysqli_fetch_assoc($rezultat)){
-            array_push($rooms, $red);
-          }
+            array_push($rooms, $red);}
+            $ret_val["rooms"] = $rooms;
+          
 
           // Pricing plans
           $prices = [];
+         
           $sql = "SELECT * FROM prices_$lcode WHERE booking_engine = 1";
+         
           $rezultat = mysqli_query($konekcija, $sql);
           while($red = mysqli_fetch_assoc($rezultat)){
             array_push($prices, $red);
@@ -294,7 +414,163 @@
               $red = mysqli_fetch_assoc($rezultat);
               $rooms[$i]["avail"] = $red["avail"];
             }
-            // Beds, will be a lot simpler with actual data
+            //Beds, will be a lot simpler with actual data
+            $beds = $rooms[$i]["houserooms"];
+            $rooms[$i]["beds"] = $beds;
+          }
+
+          // Fix rooms
+          $available_rooms = [];
+          for($i=0;$i<sizeof($rooms);$i++){
+            if($dfrom == "" || $dto == "")
+               array_push($available_rooms, $rooms[$i]);
+            else if($rooms[$i]["avail"] > 0 && sizeof($rooms[$i]["prices"])) {
+               array_push($available_rooms, $rooms[$i]);
+            }
+
+
+          }
+          $ret_val["rooms"] = $available_rooms;
+          $result = $ret_val;
+        }
+        if($action == "searchOnAnotherLanguage")
+        {
+          $dfrom = checkPost("dfrom");
+          $dto = checkPost("dto");
+          $guests = checkPost("guests");
+          $id=checkPost("idlanguage");
+
+          // Rooms
+          $rooms = [];
+        
+          $sql = "SELECT id,shortname,price,availability,occupancy,images,area,bathrooms,houserooms,booking_engine
+          ,room_numbers,linked_room,parent_room,additional_prices,status,created_by,nameSpecRoom,descriptionSpecRoom,amenities
+          ,type from rooms_$lcode as r  inner join roomlanguage as rl on r.id=rl.idroom where rl.idlanguage='$id' and rl.lcode='$lcode'
+           and booking_engine = 1 AND occupancy >= $guests";
+          
+          $rezultat = mysqli_query($konekcija, $sql);
+         
+          while($red = mysqli_fetch_assoc($rezultat)){
+            array_push($rooms, $red);}
+            $ret_val["rooms"] = $rooms;
+          
+
+          // Pricing plans
+          $prices = [];
+         
+          $sql = "SELECT type,variation,variation_type,vpid,policy,booking_engine,restriction_plan,created_by
+          ,namePrice,descriptionPrice,pl.idlanguage,board FROM prices_$lcode as p inner join
+          priceslanguage as pl on p.id = pl.idprices WHERE booking_engine = 1 and pl.idlanguage='$id' and pl.lcode='$lcode'";
+         
+          $rezultat = mysqli_query($konekcija, $sql);
+          while($red = mysqli_fetch_assoc($rezultat)){
+            array_push($prices, $red);
+          }
+
+          // Additional data
+          for($i=0;$i<sizeof($rooms);$i++){
+            $room_id = $rooms[$i]["id"];
+            // Prices
+            $room_prices = [];
+            for($j=0;$j<sizeof($prices);$j++){
+              $plan = $prices[$j];
+              $plan_id = $plan["id"];
+
+              // Getting restrictions if dates are selected
+              if($dfrom != "" && $dto != ""){
+                $restriction_id = $plan["restriction_plan"];
+                $nights = dateDiff($dfrom, $dto);
+
+                if($restriction_id != 0){ // If a restriction plan is active for the price
+                  $sql = "SELECT * FROM restrictions_$lcode WHERE id = '$restriction_id'";
+                  $rezultat = mysqli_query($konekcija, $sql);
+                  $restriction_plan = mysqli_fetch_assoc($rezultat);
+                  if($restriction_plan["type"] == "compact"){
+                    $restriction_rules = json_decode($restriction_plan["rules"]);
+                    $min_stay = $restriction_rules->min_stay;
+                    $max_stay = $restriction_rules->max_stay;
+                    $closed = $restriction_rules->closed;
+                  }
+                  else {
+                    $sql = "SELECT MAX(min_stay_$room_id) AS min_stay, MIN(max_stay_$room_id) AS max_stay, MAX(closed_$room_id) AS closed FROM restrictions_values_$lcode WHERE id = '$restriction_id' AND restriction_date >= '$dfrom' AND restriction_date < '$dto'";
+                    $rezultat = mysqli_query($konekcija, $sql);
+                    $restriction_rules = mysqli_fetch_assoc($rezultat);
+                    $min_stay = $restriction_rules["min_stay"];
+                    $max_stay = $restriction_rules["max_stay"];
+                    $closed = $restriction_rules["closed"];
+                  }
+                  if($closed == 1 || $min_stay > $nights || ($max_stay < $nights && $max_stay > 0)){
+                      continue;
+                  }
+
+                }
+              }
+
+              if($plan["vpid"] != "") // Get price from parent if plan is virtual
+                $plan_id = $plan["vpid"];
+
+              $room_price = [];
+              $room_price = $plan;
+              $policy_id = $plan["policy"];
+              $sql = "SELECT id,type,value,freeDays,enableFreeDays,created_by,idlanguage,namePolicies,descriptionPolicies
+               FROM policies_$lcode as p inner join policieslanguage as pl on pl.idpolicies=p.id 
+               WHERE id = '$policy_id' and idlanguage='$id' and pl.lcode='$lcode'";
+              $rezultat = mysqli_query($konekcija, $sql);
+              $policy = mysqli_fetch_assoc($rezultat);
+              $room_price["payment"] = $policy["type"];
+              $room_price["cancellation"] = $policy["descriptionPolicies"];
+              $sql = "SELECT AVG(room_$room_id) AS price FROM prices_values_$lcode WHERE id = '$plan_id' AND (price_date >= '$dfrom' AND price_date < '$dto')";
+              if($dfrom == "" || $dto == ""){
+                $today = date("Y-m-d");
+                $sql = "SELECT MIN(room_$room_id) AS price FROM prices_values_$lcode WHERE id = '$plan_id' AND room_$room_id > 0 AND price_date >= '$today'";
+              }
+              $rezultat = mysqli_query($konekcija, $sql);
+              $red = mysqli_fetch_assoc($rezultat);
+              $price = $red["price"];
+              if($plan["vpid"] != ""){ // Fixing virtual prices
+                $variation_type = $plan["variation_type"];
+                $variation = $plan["variation"];
+                $value = $price;
+                if($variation_type == -2) // - fixed
+                  $new_value = $value - $variation;
+                else if($variation_type == -1) // - %
+                  $new_value = $value - $value * $variation / 100;
+                else if($variation_type == 1) // + %
+                  $new_value = $value + $value * $variation / 100;
+                else if($variation_type == 2) // + fixed
+                  $new_value = $value + $variation;
+                if($new_value < 0)
+                  $new_value = 0;
+                $price = $new_value;
+              }
+            // Fixing guest number prices
+              $additional_prices = (array) json_decode($rooms[$i]["additional_prices"]);
+              if($additional_prices["active"] == 1){
+                  if($additional_prices["variation"] < 0)
+                    $additional_prices["variation"] = - $additional_prices["variation"];
+                  if($additional_prices["variation_type"] == "fixed"){
+                      $delta = $guests - $additional_prices["default"];
+                      $price += $delta * $additional_prices["variation"];
+                  }
+                  else if($additional_prices["variation_type"] == "percent"){
+                      $delta = $guests - $additional_prices["default"];
+                      $delta_price = $price * $additional_prices["variation"] / 100;
+                      $price += $delta * $delta_price;
+                  }
+              }
+
+              $room_price["price"] = $price;
+              array_push($room_prices, $room_price);
+            }
+            $rooms[$i]["prices"] = $room_prices;
+            // Avail
+            if($dfrom != "" && $dto != ""){
+              $sql = "SELECT MIN(room_$room_id) AS avail FROM avail_values_$lcode WHERE avail_date >= '$dfrom' AND avail_date < '$dto'";
+              $rezultat = mysqli_query($konekcija, $sql);
+              $red = mysqli_fetch_assoc($rezultat);
+              $rooms[$i]["avail"] = $red["avail"];
+            }
+            //Beds, will be a lot simpler with actual data
             $beds = $rooms[$i]["houserooms"];
             $rooms[$i]["beds"] = $beds;
           }

@@ -1,8 +1,62 @@
-#language{  
+#language {
     float: right;
-    width: 100px;
-    height: 100px;
+    width: 271px;
+    height: 36px;
     display: inline-block;
     position: absolute;
+    margin-right: -20%;
+    display: flex;
+    justify-content: space-around;margin-top: -54px;}
+    #lanbutton{        width: 88px !important;
+        height: 37px;}
+        .nameall{display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 7px;
+            margin-bottom: 7px;}
+         
+
+            #addanotherroom{display: none;margin-top: -58px;}
+            #selectrooms2{display: none;}
+            #insertmessage{display: none;}
+           #updatedForm{display: none;}
+   #lanbutton{display: none;}
+    #addpolicies{display: none;margin-top: 20px;}
+    #newdescpolicies{width: 97% !important;}
+    #newdesc{margin-top: 14px;
+        width: 307px;
+    }
+    
+    #roommore_settings_cancel{margin-top: 17px;
+        margin-bottom: 12px;}
+    #newname{margin-top: 10px;}
   
-    margin-right: -31%;}
+    #pricemore{display: none;    margin-top: 19px;
+        margin-bottom: 24px;}
+        #addnewprice{margin-bottom: 15px;}
+    #addanotheextras{display: none;}
+    #newdescpromocode{width: 97% !important;}
+    #addanotherpromocode{display: none;    margin-top: 20px;}
+    #moreamenities{display: none;}
+    #moreroomtype{display: none;}
+    #newboard{display: none;}
+    #insertformextras{    padding-left: 54px;
+        margin-top: 23px;
+        padding-bottom: 12px}
+        #addanotheextras{width: 98%;}
+    @media screen and (max-width: 1040px){
+        #language{  float: right;
+        width: 626px;
+        height: 36px;
+        display: inline-block;
+        position: absolute;
+        margin-right: -61%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: -18px;
+        }
+        #add_more_room_confirm{margin-left: 31px;
+        margin-bottom: 19px !important;}
+
+    }
+   

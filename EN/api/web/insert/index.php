@@ -315,6 +315,129 @@ if($action == "reservation")
   }
 }
 
+// room add
+
+if($action == "AddRooms"){
+$description=checkPost('description');
+$name=checkPost('name');
+
+$id=checkPost('id');
+$idrooms=checkPost('roomsid');
+$sql="INSERT INTO roomlanguage (idRL,idroom,idlanguage,nameSpecRoom,descriptionSpecRoom,lcode)
+  VALUES(null,'$idrooms','$id','$name','$description','$lcode')";
+$rezultat=mysqli_query($konekcija,$sql);
+if(!$rezultat){
+  fatal_error("Database error", 500); // Server failed
+}}
+
+
+
+
+
+
+
+// add cencel police
+if($action == "addpolicies"){
+  $newdescpolicies=checkPost('newdescpolicies');
+  $name=checkPost('name');
+  $politike=checkPost('politike');
+  $id=checkPost('jezik');
+  $sql1="SELECT count(*) from policieslanguage where idpolicies='$politike' and idlanguage='$lan'";
+  $rezultat1=mysqli_query($konekcija,$sql1);
+  $red = mysqli_fetch_row($rezultat1);
+  if($red[0]>0){
+    http_response_code(409);}
+    else{
+  $sql="INSERT INTO policieslanguage (idPL,idlanguage,idpolicies,namePolicies,descriptionPolicies,lcode)
+  VALUES(null,'$id','$politike','$name','$newdescpolicies','$lcode')";
+$rezultat=mysqli_query($konekcija,$sql);
+if(!$rezultat){
+  fatal_error("Database error", 500);} // Server failed
+}}
+
+// add pricing plan
+
+if($action == "addpricelist"){
+  $price=checkPost('price');
+  $nameprice=checkPost('nameprice');
+  $pricedescription=checkPost('pricedescription');
+  $language=checkPost('jezik');
+  $sql="INSERT INTO  priceslanguage (idPR,namePrice,descriptionPrice,idlanguage,idprices,lcode)
+  VALUES(null,'$nameprice','$pricedescription','$language','$price','$lcode')";
+$rezultat=mysqli_query($konekcija,$sql);
+if(!$rezultat){
+  fatal_error("Database error", 500); // Server failed
+}}
+
+ // add extras
+ if($action == "addemorextras"){
+  $extras=checkPost('extras');
+  $nameextras=checkPost('nameextras');
+  $descriptionextras=checkPost('descriptionextras');
+  $language=checkPost('jezik');
+  $sql="INSERT INTO  extraslanguage (idEL,idextras,idlanguage,nameExtras,descriptionExtras,lcode)
+  VALUES(null,'$extras','$language','$nameextras','$descriptionextras','$lcode')";
+$rezultat=mysqli_query($konekcija,$sql);
+if(!$rezultat){
+  fatal_error("Database error", 500); // Server failed
+}}
+
+// add  promocode
+if($action == "addMorePromoCode"){
+  $promocode=checkPost('promocode');
+  $promocodename=checkPost('promocodename');
+  $promocodedesc=checkPost('promocodedesc');
+  $language=checkPost('jezik');
+  $sql="INSERT INTO  promocodelanguage (idPCL,idpromocode,idlanguage,namePromoCode,DescriptionPromoCode,lcode)
+  VALUES(null,'$promocode','$language','$promocodename','$promocodedesc','$lcode')";
+$rezultat=mysqli_query($konekcija,$sql);
+if(!$rezultat){
+  fatal_error("Database error", 500); // Server failed
+}}
+
+if($action == "addMoreMessage"){
+  $property_select=checkPost('lcode');
+  $welcome=checkPost('welcome');
+  $noAvail=checkPost('noAvail');
+  $voucher=checkPost('voucher');
+  $book=checkPost('book');
+  $jezik=checkPost('jezik');
+
+  $sql2="INSERT INTO  engine_messagelanguage (idEML,idlcode,idlanguage,welcomeMessage,bookMessage,noAvailMessage,voucherMessage)
+  VALUES(null,'$property_select','$jezik','$welcome','$book','$noAvail','$voucher')";
+  $rezultat=mysqli_query($konekcija,$sql2);
+  if(!$rezultat){
+    fatal_error("Database error", 500); // Server failed
+  }
+
+}
+//add name and description on selected language
+if($action == "addMoreNameAndDescription"){
+  $jezik=checkPost('jezik');
+  $name=checkPost('name');
+  $description=checkPost('description');
+  $property_select=checkPost('lcode');
+  $sql1="SELECT count(*) from engine_headerlanguage where idlcode='$property_select' and idlanguage='$jezik'";
+  $rezultat1=mysqli_query($konekcija,$sql1);
+  $red = mysqli_fetch_row($rezultat1);
+  if($red[0]>0){
+    http_response_code(409);}
+  else{
+  $sql3="INSERT INTO  engine_footerlanguage (idEFL,idlcode,idlanguage,descriptionEngineFooter)
+  VALUES(null,'$property_select','$jezik','$description')";
+$rezultat=mysqli_query($konekcija,$sql3);
+
+$sql4="INSERT INTO  engine_headerlanguage (idEHL,idlcode,idlanguage,nameEngine)
+VALUES(null,'$property_select','$jezik','$name')";
+$rezultat=mysqli_query($konekcija,$sql4);
+
+
+
+if(!$rezultat){
+  fatal_error("Database error", 500); // Server failed
+}}}
+
+
 if($action == "guest")
 {
   if($user["guests"] < 2){

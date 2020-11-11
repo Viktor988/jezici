@@ -344,6 +344,48 @@ if($action == "extra")
     fatal_error("Database failed", 500);
 }
 
+// delete extras on another language
+if($action == "deleteExtrasOnAnotherLanguage"){
+  $id=checkPost('id');
+  $sql = "DELETE FROM extraslanguage WHERE idEL = '$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  if(!$rezultat)
+    fatal_error("Database failed", 500);
+}
+//delete promocode on another language
+if($action == "deletePromoCodeOnAnotherLanguage"){
+  $id=checkPost('id');
+  $sql = "DELETE FROM promocodelanguage WHERE idPCL = '$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  if(!$rezultat)
+    fatal_error("Database failed", 500);
+}
+//delete policies on another language
+if($action == "deletePoliciesOnAnotherLanguage"){
+  $id=checkPost('id');
+  $sql = "DELETE FROM policieslanguage WHERE idPL = '$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  if(!$rezultat)
+    fatal_error("Database failed", 500);
+}
+// delete room on another language
+if($action == "deleteAnotherRoom"){
+  $id=checkPost('idroom');
+  $sql = "DELETE FROM roomlanguage WHERE idRL = '$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  if(!$rezultat)
+    fatal_error("Database failed", 500);
+}
+
+//delete prices on another language
+if($action == "deletePriceOnAnotherLanguage"){
+  $id=checkPost('id');
+  $sql = "DELETE FROM priceslanguage WHERE idPR = '$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  if(!$rezultat)
+    fatal_error("Database failed", 500);
+}
+
 if($action == "channel")
 {
   // Remember data

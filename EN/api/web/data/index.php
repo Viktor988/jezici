@@ -21,6 +21,319 @@ $ret_val = [];
 $ret_val["status"] = "ok";
 $user = getSession($key, $account, $konekcija);
 
+
+if($action == "showLanguage"){
+  $languagearray = [];
+  $sql="SELECT * from languages where idlanguage";
+  $rezultat = mysqli_query($konekcija, $sql);
+  while($red = mysqli_fetch_assoc($rezultat)){
+    array_push($languagearray, $red);
+  }
+  $ret_val["language"] = $languagearray;
+}
+
+if($action == "showinsertform"){
+  $languagearray = [];
+  $id=checkPost('id');
+  $sql="SELECT * FROM rooms_$lcode WHERE id NOT IN(SELECT idroom from roomlanguage WHERE idlanguage=$id and lcode=$lcode)";
+  $rezultat = mysqli_query($konekcija, $sql);
+  while($red = mysqli_fetch_assoc($rezultat)){
+    array_push($languagearray, $red);
+  }
+ 
+  $ret_val["language"] = $languagearray;
+}
+
+if($action == "getRoomType"){
+  $typeRoom = [];
+  $id=checkPost('id');
+  $sql="SELECT * from typeRoom where idlanguage='$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  while($red = mysqli_fetch_assoc($rezultat)){
+    array_push($typeRoom, $red);
+  }
+  $ret_val["typeroom"] = $typeRoom;
+}
+
+if($action == "getAllAmenities"){
+  $allamenities = [];
+  $id=checkPost('id');
+  $sql="SELECT * from amenities where idlanguage='$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  while($red = mysqli_fetch_assoc($rezultat)){
+    array_push($allamenities, $red);
+  }
+  $ret_val["allamenities"] = $allamenities;
+}
+
+if($action == "getRoomsOnChange")
+{
+  $rooms = [];
+  $id=checkPost('id');
+    $sql = "SELECT * FROM roomlanguage where idlanguage='$id' and lcode='$lcode' ";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($rooms, $red);
+    }
+    $ret_val["rooms"] = $rooms;
+}
+if($action == "getOneRoom")
+{
+  $rooms = [];
+  $id=checkPost('id');
+  $idroom=checkPost('idroom');
+    $sql = "SELECT * FROM roomlanguage where idlanguage='$id' and lcode='$lcode' and idRL='$idroom' ";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    $red = mysqli_fetch_assoc($rezultat);
+    
+    $ret_val["oneRoom"] = $red;
+
+    $typeRoom = [];
+    $id=checkPost('id');
+    $sql="SELECT * from typeRoom where idlanguage='$id'";
+    $rezultat = mysqli_query($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($typeRoom, $red);
+    }
+    $ret_val["typeroom"] = $typeRoom;
+
+    $allamenities = [];
+  $sql="SELECT * from amenities where idlanguage='$id'";
+  $rezultat = mysqli_query($konekcija, $sql);
+  while($red = mysqli_fetch_assoc($rezultat)){
+    array_push($allamenities, $red);}
+    $ret_val["amenities"] = $allamenities;
+}
+
+if($action == "getallroom")
+{
+  $rooms = [];
+
+    $sql = "SELECT * FROM rooms_$lcode AS r inner join roomlanguage AS rl on r.id=rl.idroom inner join languages as l on l.idlanguage=rl.idlanguage where rl.idlanguage!=1 and rl.lcode='$lcode'";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($rooms, $red);
+    }
+    $ret_val["rooms"] = $rooms;
+}
+
+if($action == "filterroom")
+{
+  $id=checkPost('id');
+  $rooms = [];
+
+    $sql = "SELECT * FROM rooms AS r inner join roomlanguage AS rl on r.id=rl.idroom inner join languages as l on l.idlanguage=rl.idlanguage where rl.idlanguage!=1 and rl.idlanguage='$id'";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($rooms, $red);
+    }
+    $ret_val["rooms"] = $rooms;
+}
+
+
+
+
+//policies drop downlist
+if($action == "showPolicies"){
+  $policies = [];
+  $idlan=checkPost('id');
+    $sql = "SELECT * FROM policies_$lcode WHERE id NOT IN(SELECT idpolicies from policieslanguage WHERE idlanguage=$idlan and lcode=$lcode)";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($policies, $red);
+    }
+    $ret_val["policies"] = $policies;
+}
+
+//price list get boards and price dropdown list
+
+if($action == "getprice"){
+  $boards = [];
+  $id=checkPost('id');
+
+    $price = [];
+    $sql = "SELECT * FROM prices_$lcode WHERE id NOT IN(SELECT idprices from priceslanguage WHERE idlanguage=$id and lcode=$lcode)";
+    $rezultat = mysqli_query ($konekcija, $sql);
+    while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($price, $red);}
+    $ret_val["price"] = $price;}
+
+    // show extras in dropdownlist
+
+    if($action == "getExtras"){
+      $extras = [];
+      $idlan=checkPost('id');
+        $sql = "SELECT * FROM extras_$lcode WHERE id NOT IN(SELECT idextras from extraslanguage WHERE idlanguage=$idlan and lcode=$lcode)";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+          array_push($extras, $red);}
+        $ret_val["extras"] = $extras;
+        }
+
+          // show promocode in dropdown list
+      if($action == "getPromoCode"){
+        $idlan=checkPost('id');
+        $pr = [];
+        $sql = "SELECT * FROM promocodes_$lcode WHERE id NOT IN(SELECT idpromocode from promocodelanguage WHERE idlanguage=$idlan and lcode=$lcode)";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($pr, $red);}
+        $ret_val["pr"] = $pr;
+            }
+
+            //get name and description on language
+      if($action == "showFieldOnAnotherLanguage"){
+        $name = [];
+        $id=checkPost('id');
+        $lcode=checkPost('lcode');
+        $sql = "SELECT * FROM engine_headerlanguage AS esh  where esh.idlcode='$lcode' and esh.idlanguage='$id'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($name, $red);}
+        $ret_val["name"] = $name;
+
+        $desc = [];
+        $id=checkPost('id');
+        $lcode=checkPost('lcode');
+        $sql = "SELECT * FROM engine_footer AS ef INNER JOIN engine_footerlanguage AS esl ON ef.lcode=esl.idlcode where esl.idlcode='$lcode' and esl.idlanguage='$id'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($desc, $red);}
+        $ret_val["desc"] = $desc;
+          
+        // get name and description on english
+        $nameOnEnglish = [];
+        $id=checkPost('id');
+        $lcode=checkPost('lcode');
+        $sql = "SELECT * FROM engine_header where lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($nameOnEnglish, $red);}
+        $ret_val["nameOnEnglish"] = $nameOnEnglish;
+
+        $descOnEnglish = [];
+        $id=checkPost('id');
+        $lcode=checkPost('lcode');
+        $sql = "SELECT * FROM engine_footer where lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($descOnEnglish, $red);}
+        $ret_val["descOnEnglish"] = $descOnEnglish;
+
+        
+        //get message on language
+
+        $message = [];
+        $id=checkPost('id');
+        $sql2 = "SELECT * FROM  engine_messagelanguage AS ems  WHERE ems.idlcode='$lcode' and ems.idlanguage='$id'";
+        $rezultat = mysqli_query ($konekcija, $sql2);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($message, $red);}
+        $ret_val["message"] = $message;
+
+        $messageOnEnglish = [];
+        $id=checkPost('id');
+        $sql2 = "SELECT * FROM engine_messages  WHERE lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql2);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($messageOnEnglish, $red);}
+        $ret_val["messageOnEnglish"] = $messageOnEnglish;
+
+        //get message in english
+        $messageEn = [];
+        $id=checkPost('id');
+        $sql2 = "SELECT * FROM engine_messages where lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql2);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($messageEn, $red);}
+        $ret_val["messageEn"] = $messageEn;
+
+        //get cencel policies
+        $policies = [];
+        $id=checkPost('id');
+        $sql3 = "SELECT * FROM policies_$lcode AS po INNER JOIN policieslanguage AS pl ON po.id=pl.idpolicies WHERE pl.idlanguage='$id' and pl.lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql3);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($policies, $red);}
+        $ret_val["policies"] = $policies;
+          //get promocode
+        $promocode = [];
+        $id=checkPost('id');
+        $sql4 = "SELECT * FROM promocodes_$lcode AS pr INNER JOIN promocodelanguage AS pcl on pr.id=pcl.idpromocode WHERE pcl.idlanguage='$id' and pcl.lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql4);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($promocode, $red);}
+        $ret_val["promocode"] = $promocode;
+
+        //get extras
+        $extras = [];
+        $id=checkPost('id');
+        $sql3 = "SELECT * FROM extras_$lcode AS ex INNER JOIN extraslanguage AS exl ON ex.id=exl.idextras WHERE exl.idlanguage='$id' and exl.lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql3);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($extras, $red);}
+        $ret_val["extras"] = $extras;
+
+        // get prices
+        $prices = [];
+        $id=checkPost('id');
+        $sql3 = "SELECT * FROM prices_$lcode AS pr INNER JOIN priceslanguage AS pl on pr.id=pl.idprices WHERE pl.idlanguage='$id' and pl.lcode='$lcode'";
+        $rezultat = mysqli_query ($konekcija, $sql3);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($prices, $red);}
+        $ret_val["prices"] = $prices;
+        
+      
+      }
+       //get extrasforupdate
+      if($action == "getExtrasForUpdate"){
+      $onextras = [];
+      $id=checkPost('id');
+      $idlan=checkPost('idlanguage');
+      $sql3 = "SELECT * FROM extraslanguage WHERE idEL='$id' and idlanguage='$idlan'";
+      $rezultat = mysqli_query ($konekcija, $sql3);
+      while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($onextras, $red);}
+      $ret_val["onextras"] = $onextras;}
+       
+      //get promocode for update
+
+      if($action == "getPromoCodeForUpdate"){
+      $onepromocode = [];
+      $id=checkPost('id');
+      $idlan=checkPost('idlanguage');
+      $sql = "SELECT * FROM promocodelanguage WHERE idPCL='$id' and idlanguage='$idlan'";
+      $rezultat = mysqli_query ($konekcija, $sql);
+      while($red = mysqli_fetch_assoc($rezultat)){
+      array_push($onepromocode, $red);}
+      $ret_val["onepromocode"] = $onepromocode;}
+
+      //get policy for update
+      if($action == "getPolicyForUpdate"){
+        $onepolicies = [];
+        $id=checkPost('id');
+        $idlan=checkPost('idlanguage');
+        $sql = "SELECT * FROM policieslanguage WHERE idPL='$id' and idlanguage='$idlan'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($onepolicies, $red);}
+        $ret_val["onepolicies"] = $onepolicies;}
+
+      //get price for update
+
+      if($action == "getPriceForUpdate"){
+        $oneprice = [];
+        $id=checkPost('id');
+        $idlan=checkPost('idlanguage');
+        $sql = "SELECT * FROM priceslanguage WHERE idPR='$id' and idlanguage='$idlan'";
+        $rezultat = mysqli_query ($konekcija, $sql);
+        while($red = mysqli_fetch_assoc($rezultat)){
+        array_push($oneprice, $red);}
+        $ret_val["oneprice"] = $oneprice;}
+
+
+
+
 // Check access here
 
 if($action == "basics") // Things only needed on first call

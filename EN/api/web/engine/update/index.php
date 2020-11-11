@@ -7,21 +7,38 @@
     else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $konekcija = connectToDB();
         $action = getAction();
-        $lcode = $_POST["lcode"];
+        $lcode = checkPost("lcode");
 
         if($action == "header"){
             $obj = json_decode($_POST["mydata"]);
             $name = $obj->name;
             $description = $obj->description;
+            $idlanguage=$obj->idlanguage;
             $id = 1;
+           
+            if($idlanguage==1 || $idlanguage=='-1'){
             $sql = "UPDATE engine_header
                     SET name='$name' WHERE lcode = '$lcode'";
             $header = mysqli_query($konekcija, $sql);
             $sql = "UPDATE engine_footer
                     SET description='$description' WHERE lcode = '$lcode'";
             $footer = mysqli_query($konekcija, $sql);
+            var_dump($header);
+          }
+          else{
+            $sql = "UPDATE engine_headerlanguage
+                    SET nameEngine='$name' WHERE idlcode = '$lcode' and idlanguage='$idlanguage'";
+            $header = mysqli_query($konekcija, $sql);
+            $sql2 = "UPDATE engine_footerlanguage
+            SET descriptionEngineFooter='$description' WHERE idlcode = '$lcode' and idlanguage='$idlanguage'";
+                $header = mysqli_query($konekcija, $sql2);
+            var_dump($header);
+          }
+          
+      
+      }
 
-        }
+
         if($action == "appearance"){
 
             $obj = json_decode($_POST["mydata"]);
@@ -102,12 +119,18 @@
             $welcome = $obj->welcome;
             $voucher = $obj->voucher;
             $noAvail = $obj->noAvail;
+            $idlanguage = $obj->idlanguage;
             $book = $obj->book;
+            if($idlanguage=="1" || $idlanguage=="-1"){
             $sql = "UPDATE engine_messages
                     SET welcome='$welcome',voucher='$voucher',book='$book',noAvail='$noAvail' WHERE lcode = '$lcode'";
-            $header = mysqli_query($konekcija, $sql);
-
-        }
+            $header = mysqli_query($konekcija, $sql);}
+            else{
+              $sql = "UPDATE engine_messagelanguage
+              SET welcomeMessage='$welcome',voucherMessage='$voucher',bookMessage='$book',noAvailMessage='$noAvail' WHERE idlcode = '$lcode' and idlanguage='$idlanguage'";
+              $header = mysqli_query($konekcija, $sql);
+               }
+              }
         if($action == "logo"){
           if(checkPostExists("clear")){
             $url = "";

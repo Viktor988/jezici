@@ -75,6 +75,7 @@ if($change["action"] == "insert") // Item was inserted, so delete it from databa
   if(!$rezultat)
     fatal_error("Database failed", 500);
 
+   
   // Special cases
   if($change["data_type"] == "reservation"){
     $old_data = (array)$change["new_data"];

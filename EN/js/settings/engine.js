@@ -1,18 +1,22 @@
 
+
 function updateData() {
   if(disable_calls)
     return;
   var header = {
     name: $("#name").val(),
-    description: $("#description").val()
+    description: $("#description").val(),
+    idlanguage:$("#lan").val()
   };
+ 
   var data = JSON.stringify(header);
   $.ajax({
-    url: api_link + "engine/update/header",
+    url: api_link+"engine/update/header",
     method: "POST",
     data: {
       mydata: data,
-      lcode: main_lcode
+      lcode: main_lcode,
+    
      },
     success: function(rezultat) {
       add_change_settings();
@@ -159,11 +163,12 @@ function updateMessages() {
     welcome: $("#welcome").val(),
     book: $("#book").val(),
     noAvail: $("#noAvail").val(),
-    voucher: $("#voucher").val()
+    voucher: $("#voucher").val(),
+    idlanguage:$("#lan").val()
   };
   var data = JSON.stringify(header);
   $.ajax({
-    url: api_link + "engine/update/messages",
+    url:api_link+"engine/update/messages",
     method: "POST",
     data: {
       mydata: data,
@@ -266,7 +271,8 @@ $(document).ready(function(){
 
   // Promocodes
   $("#new_promocode").click(function(){ // Clear values and show form
-
+    var jezik=$("#lan").val();
+    if(jezik==1 || jezik=='-1'){
     $("#new_promocode_container input").val('');
     $("#new_promocode_container .number_input").val(0);
     $("#promocodeDescription").val("");
@@ -276,8 +282,17 @@ $(document).ready(function(){
     $("#new_promocode").hide();
 
     $("#edit_promocode_container").remove();
-    $(".promocode.selected").removeClass("selected"); // Hide open edits
+    $(".promocode.selected").removeClass("selected");
+    }
+    else{
+      $("#addanotherpromocode").css('display','block');
+      $("#new_promocode").hide();
+    } // Hide open edits
   });
+  $("#new_promocode_cancelmore").click(function(){
+    $("#addanotherpromocode").css('display','none');
+    $("#new_promocode").show();
+  })
   $("#new_promocode_cancel").click(function(){ // Hide form
     $("#new_promocode_container").hide();
     $("#new_promocode").show();
@@ -301,8 +316,10 @@ $(document).ready(function(){
         description: $("#promocodeDescription").val()
       },
       success: function(rezultat){
+      
         $(".button_loader").removeClass("button_loader");
         var sve = check_json(rezultat);
+       
         if(sve.status !== "ok"){
           add_change_error(sve.status);
           return;
@@ -500,7 +517,8 @@ $(document).ready(function(){
   });
   // New
   $("#new_policy").click(function(){ // Clear values and show form
-
+    var jezik=$("#lan").val();
+    if(jezik==1 || jezik=='-1'){
     $("#new_policy_container input").val('');
     $("#new_policy_container .number_input").val(0);
     $("#policyDescription").val("");
@@ -512,8 +530,21 @@ $(document).ready(function(){
     $("#new_policy").hide();
 
     $("#edit_policy_container").remove();
-    $(".policy.selected").removeClass("selected"); // Hide open edits
+    $(".policy.selected").removeClass("selected");
+    } 
+    else{
+      $("#addpolicies").css('display','block');
+      $("#new_policy").hide();
+    }
+    // Hide open edits
   });
+  $("#new_policies_cancelmore").click(function(){
+    $("#addpolicies").css('display','none');
+    $("#new_policy").show();
+
+  })
+
+
   $("#new_policy_cancel").click(function(){ // Hide form
     $("#new_policy_container").hide();
     $("#new_policy").show();
@@ -737,14 +768,52 @@ $(document).ready(function(){
 
 function showEngineData() { // Fetches input values
   $.ajax({
+    url:api_link + "data/showLanguage",
+    method: 'POST',
+    data:{
+      key: main_key,
+      lcode: main_lcode,
+      account: account_name,
+      
+    },
+    success:function(c){
+      console.log(c)
+      x=check_json(c)
+
+      var ispis=`<option value='-1'>Izaberite...</option>`
+      for(var a of x.language){
+        ispis+=` <option data-vrednost="${a.shortlanguage}" value="${a.idlanguage}">${a.language}</option>`
+      }
+      
+  
+      // $("#roomlanguageAll").html(ispis)
+      // $("#expectlan").html(ispis)
+      // $("#policieslanguage").html(ispis);
+      // $("#languageprice").html(ispis);
+      // $("#expectlanextras").html(ispis);
+      // $("#expectlanpromocode").html(ispis);
+      
+      $("#lan").html(ispis);
+      // $("#amenitieslan").html(ispis);
+      // $("#roomtypelan").html(ispis);
+      // $("#newboardlan").html(ispis);
+     
+      
+   
+    },
+    error:function(xhr,status,error){
+      console.log(xhr,status,error)
+    }
+  })
+  $.ajax({
     url: api_link + "engine/data/header",
     method: "POST",
-    data: {lcode: main_lcode},
+    data: {lcode: main_lcode,idlanguage:$("#lan").val()},
     success: function(rezultat) {
       info = JSON.parse(rezultat);
       disable_calls = true;
       $("#name").val(info.name);
-      $("#description").val(info.description);
+     
       disable_calls = false;
     },
     error: function(rezultat) {
@@ -816,6 +885,7 @@ function showEngineData() { // Fetches input values
       info = JSON.parse(rezultat);
       disable_calls = true;
       $("#footerDescription").val(info.description);
+      $("#description").val(info.description);
       disable_calls = false;
     },
     error: function(rezultat) {
@@ -1042,3 +1112,13 @@ function display_policies(){
       <div class='policy_actions'> Actions </div>
     </div>`);
 };
+
+
+
+
+
+
+
+
+
+

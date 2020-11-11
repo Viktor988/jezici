@@ -25,43 +25,43 @@ var get_statistics = function()
             filter_by: filter_by
           },
     success: function(rezultat){
-      var sve = check_json(rezultat);
-      if(sve.status !== "ok") {
-        add_change_error(sve.status);
-        return;
-      }
-      stats = sve.data;
-      var cmp_dfrom = dfrom.split("-");
-      cmp_dfrom[0] = cmp_dfrom[0] - 1;
-      cmp_dfrom = cmp_dfrom.join("-");
-      var cmp_dto = dto.split("-");
-      cmp_dto[0] = cmp_dto[0] - 1;
-      cmp_dto = cmp_dto.join("-");
+      // var sve = check_json(rezultat);
+      // if(sve.status !== "ok") {
+      //   add_change_error(sve.status);
+      //   return;
+      // }
+      // stats = sve.data;
+      // var cmp_dfrom = dfrom.split("-");
+      // cmp_dfrom[0] = cmp_dfrom[0] - 1;
+      // cmp_dfrom = cmp_dfrom.join("-");
+      // var cmp_dto = dto.split("-");
+      // cmp_dto[0] = cmp_dto[0] - 1;
+      // cmp_dto = cmp_dto.join("-");
 
-      $.ajax({ // Previous year
-        url: api_link + 'data/statistics',
-        method: 'POST',
-        data: {
-                key: main_key,
-                account: account_name,
-                lcode: main_lcode,
-                dfrom: cmp_dfrom,
-                dto: cmp_dto,
-                filter_by: filter_by
-              },
-        success: function(rezultat){
-          var sve = check_json(rezultat);
-          if(sve.status !== "ok") {
-            add_change_error(sve.status);
-            return;
-          }
-          cmp_stats = sve.data;
-          display_statistics();
-        },
-        error: function(xhr, textStatus, errorThrown){
-          window.alert("An error occured. " + xhr.responseText);
-        }
-      });
+      // $.ajax({ // Previous year
+      //   url: api_link + 'data/statistics',
+      //   method: 'POST',
+      //   data: {
+      //           key: main_key,
+      //           account: account_name,
+      //           lcode: main_lcode,
+      //           dfrom: cmp_dfrom,
+      //           dto: cmp_dto,
+      //           filter_by: filter_by
+      //         },
+      //   success: function(rezultat){
+      //     var sve = check_json(rezultat);
+      //     if(sve.status !== "ok") {
+      //       add_change_error(sve.status);
+      //       return;
+      //     }
+      //     cmp_stats = sve.data;
+      //     display_statistics();
+      //   },
+      //   error: function(xhr, textStatus, errorThrown){
+      //     window.alert("An error occured. " + xhr.responseText);
+      //   }
+      // });
     },
     error: function(xhr, textStatus, errorThrown){
       window.alert("An error occured. " + xhr.responseText);

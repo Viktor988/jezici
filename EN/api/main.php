@@ -9,16 +9,16 @@ require 'fixes.php';
 
 function connectToDB()
 {
-  /*
+  
   $server = "localhost";
   $serverUser = "cuwpvuip_korisnik";
   $serverPassword = "davincijevkod966";
   $database = "cuwpvuip_aplikacija";
-  */
-  $server = "localhost";
-  $serverUser = "otasyncm_korisnikU";
-  $serverPassword = "CT*$,ULOqgb=";
-  $database = "aplikacijaBeta";
+  
+  // $server = "localhost";
+  // $serverUser = "root";
+  // $serverPassword = "";
+  // $database = "cuwpvuip_aplikacija";
 
   $konekcija = new mysqli($server, $serverUser, $serverPassword, $database);
   if ($konekcija->connect_error) {

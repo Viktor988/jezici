@@ -1,4 +1,4 @@
-
+//var api_link="http://localhost/otasync-v3-Za-Jezike/EN/"
 // File select Init
 FilePond.registerPlugin(
   FilePondPluginImagePreview,
@@ -123,10 +123,11 @@ $(document).ready(function(){
 
   // New
   $("#new_room").click(function(){ // Clear values and show form
-
+    var idlan=$("#lan").val();
     $("#room_settings_header").hide(); // Hide edit select
     $("#new_room").hide(); // Hide button
     $("#delete_room").show();
+    if(idlan==1 || idlan=='-1'){
     $("#room_settings_inputs").fadeIn(200);
     pond.removeFiles();
     pond.addFiles([]);
@@ -139,8 +140,49 @@ $(document).ready(function(){
     $("#pricePerPerson").hide();
     $("#room_settings_amenities").val([]).change();
     $("#room_settings_description").val('');
+  }
+  else{
+    $("#addanotherroom").css('display','block');
+    $("#updatedForm").css('display','none');
+    var id=$("#lan").val();
+  $.ajax({
+    url: api_link + "data/showinsertform",
+    method: 'POST',
+    data:{
+      key: main_key,
+      lcode: main_lcode,
+      account: account_name,
+      id:id
+    },
+    success:function(c){
+      var x=check_json(c);
+   
+      let ispisSobe=``
+      for(var a of x.language){
+        ispisSobe+=`<option value='${a.id}'>${a.name}</option>`
+      }
+      $("#roomsmore").html(ispisSobe);
 
+
+
+}})
+   
+    
+   
+  }
   });
+
+
+
+
+             
+            
+            
+          
+
+
+
+  
   // Edit
   $("#room_settings_active").change(function(){
     let id = $(this).val();
@@ -215,9 +257,21 @@ $(document).ready(function(){
       }
     }
   });
+
+
   // Cancel
   $("#room_settings_cancel").click(function(){
     $("#room_settings_inputs").hide();
+    $("#room_settings_active").val(-1).change();
+    $("#room_settings_header").css("display",'flex')
+    $("#delete_room").css("display",'none')
+    $("#new_room").css("display",'block')
+
+  });
+
+  $("#roommore_settings_cancel").click(function(){
+    $("#room_settings_inputs").hide();
+    $("#addanotherroom").css('display','none');
     $("#room_settings_active").val(-1).change();
   });
   // Update

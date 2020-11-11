@@ -514,7 +514,26 @@ if($action == "reservationGuestStatus")
     $new_data = mysqli_fetch_assoc($rezultat);
   }
 }
+//edit room
+if($action == "editMoreRoom")
+{
+  $name = checkPost("name");
+  $desc = checkPost("desc");
+ 
+  $idrl = checkPost("idrl");
+  
+    $sql = "UPDATE roomlanguage SET
+    nameSpecRoom = '$name',
+    descriptionSpecRoom = '$desc',
+    typeroom = '$type'
+    WHERE idRL = '$idrl'";
+  
 
+$rezultat = mysqli_query($konekcija, $sql);
+if(!$rezultat)
+  fatal_error("Database failed", 500);
+  
+}
 if($action == "guest")
 {
   $name = checkPost("name");
@@ -1428,6 +1447,51 @@ if($action == "invalidcc")
   $userToken = makeRequest("acquire_token", array($account, "davincijevkod966", "753fa793e9adb95321b061f05e29a78327645c05e097e376"));
   makeRequest("bcom_notify_invalid_cc", array($userToken, $lcode, $id));
   makeRequest("release_token", array($userToken));
+}
+
+// update extras on another language
+if($action == "updateMoreLanguageExtras"){
+  $hidden=checkPost('hidden');
+$idlan=checkPost('idlanguage');
+$name=checkPost('name');
+$desc=checkPost('desc');
+  $sql = "UPDATE extraslanguage
+          SET descriptionExtras='$desc', nameExtras='$name' WHERE idEL = '$hidden' and idlanguage='$idlan'";
+  $footer = mysqli_query($konekcija, $sql);
+
+}
+// update promocode on another language
+
+if($action == "updateMoreLanguagePromoCode"){
+  $hidden=checkPost('hidden');
+$idlan=checkPost('idlanguage');
+$name=checkPost('name');
+$desc=checkPost('desc');
+  $sql = "UPDATE promocodelanguage
+          SET DescriptionPromoCode='$desc', namePromoCode='$name' WHERE idPCL = '$hidden' and idlanguage='$idlan'";
+  $footer = mysqli_query($konekcija, $sql);
+
+}
+
+// update policies on another language
+if($action == "updateMoreLanguagePolicies"){
+  $hidden=checkPost('hidden');
+$idlan=checkPost('idlanguage');
+$name=checkPost('name');
+$desc=checkPost('desc');
+  $sql = "UPDATE policieslanguage
+          SET descriptionPolicies='$desc', namePolicies='$name' WHERE idPL = '$hidden' and idlanguage='$idlan'";
+  $footer = mysqli_query($konekcija, $sql);
+}
+// update price on another language
+if($action == "updateMoreLanguagePrice"){
+  $hidden=checkPost('hidden');
+$idlan=checkPost('idlanguage');
+$name=checkPost('name');
+$desc=checkPost('desc');
+  $sql = "UPDATE priceslanguage
+          SET descriptionPrice='$desc', namePrice='$name' WHERE idPR = '$hidden' and idlanguage='$idlan'";
+  $footer = mysqli_query($konekcija, $sql);
 }
 
 // Changelog

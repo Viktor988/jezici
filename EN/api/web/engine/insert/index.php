@@ -19,6 +19,10 @@ $ret_val["status"] = "ok";
 $old_data = [];
 $new_data = [];
 
+
+
+
+
 if($action == "reservation")
 {
   $date_arrival = checkPost("date_arrival");
